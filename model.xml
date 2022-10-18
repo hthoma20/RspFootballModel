@@ -17,5 +17,9 @@
             <name>home</name>
             <type>RspChoice</type>
         </member>
+        <member>
+            <name>away</name>
+            <type>RspChoice</type>
+        </member>
     </Result>
 </model>

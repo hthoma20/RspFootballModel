@@ -11,3 +11,9 @@ class Player(str, Enum):
     home = 'home'
     away = 'away'
 
+class RspResult(BaseModel):
+    name: Literal['RSP'] = 'RSP'
+    home: RspChoice
+    away: RspChoice
+
+Result = Union[RspResult]

@@ -34,7 +34,8 @@ namespace Model
     class ModelParser {
         public Model Parse(XmlDocument xmlDoc) {
             return new Model {
-                Enums = ParseEnums(xmlDoc)
+                Enums = ParseEnums(xmlDoc),
+                Results = ParseResults(xmlDoc)
             };
         }
 
@@ -57,11 +58,51 @@ namespace Model
                 Members = members
             };
         }
+
+        private IEnumerable<ResultModel> ParseResults(XmlDocument xmlDoc) {
+            XmlNodeList results = xmlDoc.GetElementsByTagName("Result");
+
+            return from resultNode in results.Cast<XmlNode>()
+                select ParseResult(resultNode);
+        }
+
+        private ResultModel ParseResult(XmlNode node) {
+            string name = node.Attributes["name"].Value;
+            string tag = node.Attributes["tag"].Value;
+            
+            XmlNodeList memberNodes = node.SelectNodes("member");
+            IEnumerable<TypedMember> members = from memberNode in memberNodes.Cast<XmlNode>()
+                select ParseTypedMember(memberNode);
+
+            return new ResultModel {
+                Name = name,
+                Tag = tag,
+                Members = members
+            };
+        }
+
+        private TypedMember ParseTypedMember(XmlNode node) {
+            string name = node.SelectSingleNode("name").InnerText;
+            Type type = ParseType(node.SelectSingleNode("type"));
+
+            return new TypedMember {
+                Name = name,
+                Type = type
+            };
+        }
+
+        private Type ParseType(XmlNode node) {
+            return new Identifier {
+                Name = node.InnerText
+            };
+        }
     }
 
     interface LanguageModelGenerator {
         void GenerateHeader(StreamWriter writer);
         void GenerateEnum(StreamWriter writer, EnumModel enumModel);
+        void GenerateResult(StreamWriter writer, ResultModel resultModel);
+        void GenerateAggregateResult(StreamWriter writer, IEnumerable<ResultModel> results);
     }
 
     class ModelGenerator {
@@ -80,6 +121,12 @@ namespace Model
                 generator.GenerateEnum(writer, enumModel);
                 writer.WriteLine();
             }
+
+            foreach (ResultModel resultModel in model.Results) {
+                generator.GenerateResult(writer, resultModel);
+                writer.WriteLine();
+            }
+            generator.GenerateAggregateResult(writer, model.Results);
         }
 
     }
