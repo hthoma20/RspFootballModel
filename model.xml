@@ -1,0 +1,21 @@
+
+
+<model>
+    <Enum name="RspChoice">
+        <member>ROCK</member>
+        <member>PAPER</member>
+        <member>SCISSORS</member>
+    </Enum>
+
+    <Enum name="Player">
+        <member>home</member>
+        <member>away</member>
+    </Enum>
+
+    <Result name="RspResult" tag="RSP">
+        <member>
+            <name>home</name>
+            <type>RspChoice</type>
+        </member>
+    </Result>
+</model>
