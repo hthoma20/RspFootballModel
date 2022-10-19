@@ -14,6 +14,7 @@ class Player(str, Enum):
 class Game(BaseModel):
     gameId: str
     version: int
+    players: dict[Player, Optional[str]]
     possession: Optional[Player]
 
 class RspAction(BaseModel):

@@ -58,6 +58,10 @@ namespace Model {
         public Type SubType;
     }
 
+    public class PlayerMap : Type {
+        public Type SubType;
+    }
+
     // Used for TaggedUnions
     public class TagType : Type {
         public string Value;

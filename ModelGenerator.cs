@@ -146,6 +146,10 @@ namespace Model
                     return new OptionalType {
                         SubType = ParseType(node.FirstChild)
                     };
+                case "playermap":
+                    return new PlayerMap {
+                        SubType = ParseType(node.FirstChild)
+                    };
             }
 
             throw new ArgumentException("Unknown type node: " + node.Name);

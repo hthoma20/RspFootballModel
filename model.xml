@@ -22,6 +22,14 @@
             <type><int/></type>
         </member>
         <member>
+            <name>players</name>
+            <type>
+                <playermap>
+                    <optional><string/></optional>
+                </playermap>
+            </type>
+        </member>
+        <member>
             <name>possession</name>
             <type><optional>Player</optional></type>
         </member>

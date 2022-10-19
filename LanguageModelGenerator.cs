@@ -51,6 +51,8 @@ namespace Model {
                     return $"list[{GetTypeString(listType.SubType)}]";
                 case OptionalType optionalType:
                     return $"Optional[{GetTypeString(optionalType.SubType)}]";
+                case PlayerMap playerMap:
+                    return $"dict[Player, {GetTypeString(playerMap.SubType)}]";
                 case TagType tagType:
                     return $"Literal['{tagType.Value}'] = '{tagType.Value}'";
             }
@@ -62,7 +64,9 @@ namespace Model {
 
         private string TAB = "    ";
 
-        public void GenerateHeader(StreamWriter writer) {}
+        public void GenerateHeader(StreamWriter writer) {
+            writer.WriteLine("export type PlayerMap<T> = {'home': T, 'away': T}");
+        }
 
         public void GenerateEnum(StreamWriter writer, EnumModel enumModel) {
             
@@ -103,6 +107,8 @@ namespace Model {
                     return $"{GetTypeString(listType.SubType)}[]";
                 case OptionalType optionalType:
                     return $"{GetTypeString(optionalType.SubType)} | null";
+                case PlayerMap playerMap:
+                    return $"PlayerMap<{GetTypeString(playerMap.SubType)}>";
                 case TagType tagType:
                     return $"'{tagType.Value}'";
             }
