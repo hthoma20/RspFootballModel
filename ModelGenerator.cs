@@ -33,15 +33,16 @@ namespace Model
 
     class ModelParser {
         public Model Parse(XmlDocument xmlDoc) {
+            XmlNode model = xmlDoc.FirstChild;
             return new Model {
-                Enums = ParseEnums(xmlDoc),
-                Structs = ParseStructs(xmlDoc),
-                Unions = ParseUnions(xmlDoc)
+                Enums = ParseEnums(model),
+                Structs = ParseStructs(model),
+                Unions = ParseUnions(model)
             };
         }
 
-        private IEnumerable<EnumModel> ParseEnums(XmlDocument xmlDoc) {
-            XmlNodeList enums = xmlDoc.GetElementsByTagName("Enum");
+        private IEnumerable<EnumModel> ParseEnums(XmlNode xmlNode) {
+            XmlNodeList enums = xmlNode.SelectNodes("Enum");
 
             return from enumNode in enums.Cast<XmlNode>()
                 select ParseEnum(enumNode);
@@ -60,8 +61,8 @@ namespace Model
             };
         }
 
-        private IEnumerable<StructModel> ParseStructs(XmlDocument xmlDoc) {
-            XmlNodeList structs = xmlDoc.SelectNodes("Struct");
+        private IEnumerable<StructModel> ParseStructs(XmlNode xmlNode) {
+            XmlNodeList structs = xmlNode.SelectNodes("Struct");
 
             return from structNode in structs.Cast<XmlNode>()
                 select ParseStruct(structNode);
@@ -80,8 +81,8 @@ namespace Model
             };
         }
 
-        private IEnumerable<TaggedUnionModel> ParseUnions(XmlDocument xmlDoc) {
-            XmlNodeList unions = xmlDoc.GetElementsByTagName("TaggedUnion");
+        private IEnumerable<TaggedUnionModel> ParseUnions(XmlNode xmlNode) {
+            XmlNodeList unions = xmlNode.SelectNodes("TaggedUnion");
 
             return from unionNode in unions.Cast<XmlNode>()
                 select ParseUnion(unionNode);

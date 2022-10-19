@@ -11,6 +11,10 @@ class Player(str, Enum):
     home = 'home'
     away = 'away'
 
+class Game(BaseModel):
+    gameId: str
+    version: int
+
 class RspAction(BaseModel):
     name: Literal['RSP'] = 'RSP'
     choice: RspChoice
