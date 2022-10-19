@@ -12,7 +12,7 @@ class Player(str, Enum):
     away = 'away'
 
 class RspAction(BaseModel):
-    name: Literal[RSP]
+    name: Literal['RSP'] = 'RSP'
     choice: RspChoice
 
 Action = Union[RspAction]
@@ -28,3 +28,4 @@ class RollResult(BaseModel):
     roll: list[int]
 
 Result = Union[RspResult, RollResult]
+

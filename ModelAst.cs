@@ -32,15 +32,8 @@ namespace Model {
         public IEnumerable<StructModel> Members;
     }
 
-    public class ResultModel {
-        public string Name;
-        public string Tag;
-        public IEnumerable<TypedMember> Members;
-    }
-
     public class Model {
         public IEnumerable<EnumModel> Enums;
-        public IEnumerable<ResultModel> Results;
         public IEnumerable<StructModel> Structs;
         public IEnumerable<TaggedUnionModel> Unions;
     }

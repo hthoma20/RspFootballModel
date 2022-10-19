@@ -32,27 +32,28 @@
         </Struct>
     </TaggedUnion>
 
-    <Result name="RspResult" tag="RSP">
-        <member>
-            <name>home</name>
-            <type>RspChoice</type>
-        </member>
-        <member>
-            <name>away</name>
-            <type>RspChoice</type>
-        </member>
-    </Result>
-
-    <Result name="RollResult" tag="ROLL">
-        <member>
-            <name>player</name>
-            <type>Player</type>
-        </member>
-        <member>
-            <name>roll</name>
-            <type> <list><int/></list> </type>
-        </member>
-
-    </Result>
-
+    <TaggedUnion name="Result" tagKey="name">
+        <Struct name="RspResult" tag="RSP">
+            <member>
+                <name>home</name>
+                <type>RspChoice</type>
+            </member>
+            <member>
+                <name>away</name>
+                <type>RspChoice</type>
+            </member>
+        </Struct>
+    
+        <Struct name="RollResult" tag="ROLL">
+            <member>
+                <name>player</name>
+                <type>Player</type>
+            </member>
+            <member>
+                <name>roll</name>
+                <type> <list><int/></list> </type>
+            </member>
+        </Struct>
+    </TaggedUnion>
+    
 </model>

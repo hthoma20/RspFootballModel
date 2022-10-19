@@ -23,4 +23,4 @@ export type RollResult = {
 };
 
 export type Result = RspResult | RollResult;
-export type ResultName = Result['name'];
+

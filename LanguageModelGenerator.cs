@@ -32,21 +32,6 @@ namespace Model {
             }
         }
 
-        public void GenerateResult(StreamWriter writer, ResultModel resultModel) {
-            writer.WriteLine($"class {resultModel.Name}(BaseModel):");
-            writer.WriteLine($"{TAB}name: Literal['{resultModel.Tag}'] = '{resultModel.Tag}'");
-
-            foreach (TypedMember member in resultModel.Members) {
-                string typeString = GetTypeString(member.Type);
-                writer.WriteLine($"{TAB}{member.Name}: {typeString}");
-            }
-        }
-
-        public void GenerateAggregateResult(StreamWriter writer, IEnumerable<ResultModel> results) {
-            string union = string.Join(", ", from result in results select result.Name);
-            writer.WriteLine($"Result = Union[{union}]");
-        }
-
         public void GenerateTaggedUnion(StreamWriter writer, TaggedUnionModel unionModel) {
             string unionString = string.Join(", ", from member in unionModel.Members
                 select member.Name);
@@ -65,7 +50,7 @@ namespace Model {
                 case ListType listType:
                     return $"list[{GetTypeString(listType.SubType)}]";
                 case TagType tagType:
-                    return $"Literal[{tagType.Value}]";
+                    return $"Literal['{tagType.Value}'] = '{tagType.Value}'";
             }
             throw new ArgumentException("Unknown type: " + type);
         }
@@ -102,25 +87,6 @@ namespace Model {
                 select member.Name);
 
             writer.WriteLine($"export type {unionModel.Name} = {unionString};");
-        }
-
-
-        public void GenerateResult(StreamWriter writer, ResultModel resultModel) {
-            writer.WriteLine($"export type {resultModel.Name} = {{");
-            writer.WriteLine($"{TAB}name: '{resultModel.Tag}';");
-
-            foreach (TypedMember member in resultModel.Members) {
-                string typeString = GetTypeString(member.Type);
-                writer.WriteLine($"{TAB}{member.Name}: {typeString};");
-            }
-
-            writer.WriteLine("};");
-        }
-
-        public void GenerateAggregateResult(StreamWriter writer, IEnumerable<ResultModel> results) {
-            string union = string.Join(" | ", from result in results select result.Name);
-            writer.WriteLine($"export type Result = {union};");
-            writer.WriteLine("export type ResultName = Result['name'];");
         }
 
         private string GetTypeString(Type type) {

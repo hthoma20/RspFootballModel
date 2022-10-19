@@ -35,7 +35,6 @@ namespace Model
         public Model Parse(XmlDocument xmlDoc) {
             return new Model {
                 Enums = ParseEnums(xmlDoc),
-                Results = ParseResults(xmlDoc),
                 Structs = ParseStructs(xmlDoc),
                 Unions = ParseUnions(xmlDoc)
             };
@@ -118,28 +117,6 @@ namespace Model
             return structModel;
         }
 
-        private IEnumerable<ResultModel> ParseResults(XmlDocument xmlDoc) {
-            XmlNodeList results = xmlDoc.GetElementsByTagName("Result");
-
-            return from resultNode in results.Cast<XmlNode>()
-                select ParseResult(resultNode);
-        }
-
-        private ResultModel ParseResult(XmlNode node) {
-            string name = node.Attributes["name"].Value;
-            string tag = node.Attributes["tag"].Value;
-            
-            XmlNodeList memberNodes = node.SelectNodes("member");
-            IEnumerable<TypedMember> members = from memberNode in memberNodes.Cast<XmlNode>()
-                select ParseTypedMember(memberNode);
-
-            return new ResultModel {
-                Name = name,
-                Tag = tag,
-                Members = members
-            };
-        }
-
         private TypedMember ParseTypedMember(XmlNode node) {
             string name = node.SelectSingleNode("name").InnerText;
             Type type = ParseType(node.SelectSingleNode("type").FirstChild);
@@ -174,8 +151,6 @@ namespace Model
         void GenerateHeader(StreamWriter writer);
         void GenerateEnum(StreamWriter writer, EnumModel enumModel);
         void GenerateStruct(StreamWriter writer, StructModel structModel);
-        void GenerateResult(StreamWriter writer, ResultModel resultModel);
-        void GenerateAggregateResult(StreamWriter writer, IEnumerable<ResultModel> results);
         void GenerateTaggedUnion(StreamWriter writed, TaggedUnionModel unionModel);
     }
 
@@ -209,12 +184,6 @@ namespace Model
                 generator.GenerateTaggedUnion(writer, unionModel);
                 writer.WriteLine();
             }
-
-            foreach (ResultModel resultModel in model.Results) {
-                generator.GenerateResult(writer, resultModel);
-                writer.WriteLine();
-            }
-            generator.GenerateAggregateResult(writer, model.Results);
         }
 
     }
