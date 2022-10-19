@@ -3,10 +3,12 @@ export type RspChoice = 'ROCK' | 'PAPER' | 'SCISSORS';
 
 export type Player = 'home' | 'away';
 
-export type Game = {
-    gameId: string;
-    version: number;
+export type RspAction = {
+    name: 'RSP';
+    choice: RspChoice;
 };
+
+export type Action = RspAction;
 
 export type RspResult = {
     name: 'RSP';

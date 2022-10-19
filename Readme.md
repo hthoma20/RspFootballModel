@@ -15,16 +15,22 @@ and expected children.
 ### Types
 Several difference structures require a type to be specified. This can be one of:
  - A simple identifier, which should refer to a declared Enum by its name
- - `<int>`
+ - `<int/>`
+ - `<string/>`
  - `<list> {some type} <\list>`
 
 ### Enum
 
 `<Enum>` tags represent a set of literals. Enum should have a `name` attribute and `<member>` children.
 
-### Result
+### Struct
 
-A result in RspFootball is a representation of something that happened to get the game into its current state.
-Each Result must have a `name` and a `tag` attribute. It should have `<member>` children.
-Each `<member>` should have a `<name>` and a `<type>`.
+A struct is a named type with key-value pairs. Each `<Struct>` must have a `name` attribute.
+It should have `<member>` children. Each `<member>` should have a `<name>` and a `<type>`.
 
+### TaggedUnion
+
+A union is a named type which holds one of several different Structs. Each `<TaggedUnion>` must have
+a `name` and `tagKey` attribute. The tagKey will be added as a member in each child struct.
+The children must be `<Struct>` objects, and each must have an attribute `tag` which represents
+the tag value.

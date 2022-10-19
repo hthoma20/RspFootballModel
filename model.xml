@@ -23,6 +23,15 @@
         </member>
     </Struct>
 
+    <TaggedUnion name="Action" tagKey="name">
+        <Struct name="RspAction" tag="RSP">
+            <member>
+                <name>choice</name>
+                <type>RspChoice</type>
+            </member>
+        </Struct>
+    </TaggedUnion>
+
     <Result name="RspResult" tag="RSP">
         <member>
             <name>home</name>

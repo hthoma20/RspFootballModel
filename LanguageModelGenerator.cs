@@ -47,6 +47,13 @@ namespace Model {
             writer.WriteLine($"Result = Union[{union}]");
         }
 
+        public void GenerateTaggedUnion(StreamWriter writer, TaggedUnionModel unionModel) {
+            string unionString = string.Join(", ", from member in unionModel.Members
+                select member.Name);
+
+            writer.WriteLine($"{unionModel.Name} = Union[{unionString}]");
+        }
+
         private string GetTypeString(Type type) {
             switch (type) {
                 case Identifier identifier:
@@ -57,6 +64,8 @@ namespace Model {
                     return "str";
                 case ListType listType:
                     return $"list[{GetTypeString(listType.SubType)}]";
+                case TagType tagType:
+                    return $"Literal[{tagType.Value}]";
             }
             throw new ArgumentException("Unknown type: " + type);
         }
@@ -88,6 +97,13 @@ namespace Model {
             writer.WriteLine("};");
         }
 
+        public void GenerateTaggedUnion(StreamWriter writer, TaggedUnionModel unionModel) {
+            string unionString = string.Join(" | ", from member in unionModel.Members
+                select member.Name);
+
+            writer.WriteLine($"export type {unionModel.Name} = {unionString};");
+        }
+
 
         public void GenerateResult(StreamWriter writer, ResultModel resultModel) {
             writer.WriteLine($"export type {resultModel.Name} = {{");
@@ -117,6 +133,8 @@ namespace Model {
                     return "string";
                 case ListType listType:
                     return $"{GetTypeString(listType.SubType)}[]";
+                case TagType tagType:
+                    return $"'{tagType.Value}'";
             }
             throw new ArgumentException("Unknown type: " + type);
         }

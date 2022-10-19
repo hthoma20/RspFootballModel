@@ -26,6 +26,12 @@ namespace Model {
         public IEnumerable<TypedMember> Members;
     }
 
+    public class TaggedUnionModel {
+        public string Name;
+        public string TagKey;
+        public IEnumerable<StructModel> Members;
+    }
+
     public class ResultModel {
         public string Name;
         public string Tag;
@@ -36,6 +42,7 @@ namespace Model {
         public IEnumerable<EnumModel> Enums;
         public IEnumerable<ResultModel> Results;
         public IEnumerable<StructModel> Structs;
+        public IEnumerable<TaggedUnionModel> Unions;
     }
 
 
@@ -52,5 +59,14 @@ namespace Model {
 
     public class ListType : Type {
         public Type SubType;
+    }
+
+    // Used for TaggedUnions
+    public class TagType : Type {
+        public string Value;
+
+        public TagType(string value) {
+            this.Value = value;
+        }
     }
 }

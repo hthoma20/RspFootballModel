@@ -36,7 +36,8 @@ namespace Model
             return new Model {
                 Enums = ParseEnums(xmlDoc),
                 Results = ParseResults(xmlDoc),
-                Structs = ParseStructs(xmlDoc)
+                Structs = ParseStructs(xmlDoc),
+                Unions = ParseUnions(xmlDoc)
             };
         }
 
@@ -61,7 +62,7 @@ namespace Model
         }
 
         private IEnumerable<StructModel> ParseStructs(XmlDocument xmlDoc) {
-            XmlNodeList structs = xmlDoc.GetElementsByTagName("Struct");
+            XmlNodeList structs = xmlDoc.SelectNodes("Struct");
 
             return from structNode in structs.Cast<XmlNode>()
                 select ParseStruct(structNode);
@@ -78,6 +79,43 @@ namespace Model
                 Name = name,
                 Members = members
             };
+        }
+
+        private IEnumerable<TaggedUnionModel> ParseUnions(XmlDocument xmlDoc) {
+            XmlNodeList unions = xmlDoc.GetElementsByTagName("TaggedUnion");
+
+            return from unionNode in unions.Cast<XmlNode>()
+                select ParseUnion(unionNode);
+        }
+
+        private TaggedUnionModel ParseUnion(XmlNode node) {
+            string name = node.Attributes["name"].Value;
+            string tagKey = node.Attributes["tagKey"].Value;
+
+            IEnumerable<StructModel> members = from structNode in node.SelectNodes("Struct").Cast<XmlNode>()
+                select ParseUnionStruct(structNode, tagKey);
+
+            return new TaggedUnionModel {
+                Name = name,
+                TagKey = tagKey,
+                Members = members
+            };
+        }
+
+        private StructModel ParseUnionStruct(XmlNode structNode, string tagKey) {
+            string tag = structNode.Attributes["tag"].Value;
+            
+            StructModel structModel = ParseStruct(structNode);
+            
+            var members = new List<TypedMember>(structModel.Members);
+            members.Insert(0, new TypedMember{
+                Name = tagKey,
+                Type = new TagType(tag)
+            });
+
+            structModel.Members = members;
+
+            return structModel;
         }
 
         private IEnumerable<ResultModel> ParseResults(XmlDocument xmlDoc) {
@@ -138,6 +176,7 @@ namespace Model
         void GenerateStruct(StreamWriter writer, StructModel structModel);
         void GenerateResult(StreamWriter writer, ResultModel resultModel);
         void GenerateAggregateResult(StreamWriter writer, IEnumerable<ResultModel> results);
+        void GenerateTaggedUnion(StreamWriter writed, TaggedUnionModel unionModel);
     }
 
     class ModelGenerator {
@@ -159,6 +198,15 @@ namespace Model
 
             foreach (StructModel structModel in model.Structs) {
                 generator.GenerateStruct(writer, structModel);
+                writer.WriteLine();
+            }
+
+            foreach (TaggedUnionModel unionModel in model.Unions) {
+                foreach (StructModel structModel in unionModel.Members) {
+                    generator.GenerateStruct(writer, structModel);
+                    writer.WriteLine();
+                }
+                generator.GenerateTaggedUnion(writer, unionModel);
                 writer.WriteLine();
             }
 
