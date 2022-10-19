@@ -15,7 +15,7 @@
     <Struct name="Game">
         <member>
             <name>gameId</name>
-            <type><int/></type>
+            <type><string/></type>
         </member>
         <member>
             <name>version</name>

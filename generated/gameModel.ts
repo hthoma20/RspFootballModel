@@ -4,7 +4,7 @@ export type RspChoice = 'ROCK' | 'PAPER' | 'SCISSORS';
 export type Player = 'home' | 'away';
 
 export type Game = {
-    gameId: number;
+    gameId: string;
     version: number;
 };
 

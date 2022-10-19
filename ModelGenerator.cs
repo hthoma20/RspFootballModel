@@ -120,6 +120,8 @@ namespace Model
                     };
                 case "int":
                     return new IntType();
+                case "string":
+                    return new StringType();
                 case "list":
                     return new ListType {
                         SubType = ParseType(node.FirstChild)

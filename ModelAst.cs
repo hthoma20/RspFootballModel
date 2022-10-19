@@ -48,6 +48,8 @@ namespace Model {
 
     public class IntType : Type {}
 
+    public class StringType : Type {}
+
     public class ListType : Type {
         public Type SubType;
     }

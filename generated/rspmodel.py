@@ -12,7 +12,7 @@ class Player(str, Enum):
     away = 'away'
 
 class Game(BaseModel):
-    gameId: int
+    gameId: str
     version: int
 
 class RspResult(BaseModel):

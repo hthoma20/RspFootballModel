@@ -53,6 +53,8 @@ namespace Model {
                     return identifier.Name;
                 case IntType intType:
                     return "int";
+                case StringType stringType:
+                    return "str";
                 case ListType listType:
                     return $"list[{GetTypeString(listType.SubType)}]";
             }
@@ -111,6 +113,8 @@ namespace Model {
                     return identifier.Name;
                 case IntType intType:
                     return "number";
+                case StringType stringType:
+                    return "string";
                 case ListType listType:
                     return $"{GetTypeString(listType.SubType)}[]";
             }
