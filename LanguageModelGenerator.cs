@@ -23,6 +23,15 @@ namespace Model {
             }
         }
 
+        public void GenerateStruct(StreamWriter writer, StructModel structModel) {
+            writer.WriteLine($"class {structModel.Name}(BaseModel):");
+
+            foreach (TypedMember member in structModel.Members) {
+                string typeString = GetTypeString(member.Type);
+                writer.WriteLine($"{TAB}{member.Name}: {typeString}");
+            }
+        }
+
         public void GenerateResult(StreamWriter writer, ResultModel resultModel) {
             writer.WriteLine($"class {resultModel.Name}(BaseModel):");
             writer.WriteLine($"{TAB}name: Literal['{resultModel.Tag}'] = '{resultModel.Tag}'");
@@ -42,6 +51,10 @@ namespace Model {
             switch (type) {
                 case Identifier identifier:
                     return identifier.Name;
+                case IntType intType:
+                    return "int";
+                case ListType listType:
+                    return $"list[{GetTypeString(listType.SubType)}]";
             }
             throw new ArgumentException("Unknown type: " + type);
         }
@@ -60,6 +73,17 @@ namespace Model {
             string values = string.Join(" | ", quotedMembers);
 
             writer.WriteLine($"export type {enumModel.Name} = {values};");
+        }
+
+        public void GenerateStruct(StreamWriter writer, StructModel structModel) {
+            writer.WriteLine($"export type {structModel.Name} = {{");
+
+            foreach (TypedMember member in structModel.Members) {
+                string typeString = GetTypeString(member.Type);
+                writer.WriteLine($"{TAB}{member.Name}: {typeString};");
+            }
+
+            writer.WriteLine("};");
         }
 
 
@@ -85,6 +109,10 @@ namespace Model {
             switch (type) {
                 case Identifier identifier:
                     return identifier.Name;
+                case IntType intType:
+                    return "number";
+                case ListType listType:
+                    return $"{GetTypeString(listType.SubType)}[]";
             }
             throw new ArgumentException("Unknown type: " + type);
         }

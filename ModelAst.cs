@@ -21,6 +21,11 @@ namespace Model {
         public Type Type;
     }
 
+    public class StructModel {
+        public string Name;
+        public IEnumerable<TypedMember> Members;
+    }
+
     public class ResultModel {
         public string Name;
         public string Tag;
@@ -30,6 +35,7 @@ namespace Model {
     public class Model {
         public IEnumerable<EnumModel> Enums;
         public IEnumerable<ResultModel> Results;
+        public IEnumerable<StructModel> Structs;
     }
 
 
@@ -39,5 +45,10 @@ namespace Model {
     public class Identifier : Type {
         public string Name;
     }
-    
+
+    public class IntType : Type {}
+
+    public class ListType : Type {
+        public Type SubType;
+    }
 }

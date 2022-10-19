@@ -12,6 +12,12 @@ the `generated` directory. Consumers of this model can then copy the relevant mo
 The RspFootball model contains several different primitives, each with required XML attributes,
 and expected children.
 
+### Types
+Several difference structures require a type to be specified. This can be one of:
+ - A simple identifier, which should refer to a declared Enum by its name
+ - `<int>`
+ - `<list> {some type} <\list>`
+
 ### Enum
 
 `<Enum>` tags represent a set of literals. Enum should have a `name` attribute and `<member>` children.

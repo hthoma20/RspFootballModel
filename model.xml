@@ -12,6 +12,17 @@
         <member>away</member>
     </Enum>
 
+    <Struct name="Game">
+        <member>
+            <name>gameId</name>
+            <type><int/></type>
+        </member>
+        <member>
+            <name>version</name>
+            <type><int/></type>
+        </member>
+    </Struct>
+
     <Result name="RspResult" tag="RSP">
         <member>
             <name>home</name>
@@ -22,4 +33,17 @@
             <type>RspChoice</type>
         </member>
     </Result>
+
+    <Result name="RollResult" tag="ROLL">
+        <member>
+            <name>player</name>
+            <type>Player</type>
+        </member>
+        <member>
+            <name>roll</name>
+            <type> <list><int/></list> </type>
+        </member>
+
+    </Result>
+
 </model>
