@@ -21,6 +21,10 @@
             <name>version</name>
             <type><int/></type>
         </member>
+        <member>
+            <name>possession</name>
+            <type><optional>Player</optional></type>
+        </member>
     </Struct>
 
     <TaggedUnion name="Action" tagKey="name">

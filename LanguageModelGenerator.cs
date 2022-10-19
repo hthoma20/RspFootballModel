@@ -49,6 +49,8 @@ namespace Model {
                     return "str";
                 case ListType listType:
                     return $"list[{GetTypeString(listType.SubType)}]";
+                case OptionalType optionalType:
+                    return $"Optional[{GetTypeString(optionalType.SubType)}]";
                 case TagType tagType:
                     return $"Literal['{tagType.Value}'] = '{tagType.Value}'";
             }
@@ -99,6 +101,8 @@ namespace Model {
                     return "string";
                 case ListType listType:
                     return $"{GetTypeString(listType.SubType)}[]";
+                case OptionalType optionalType:
+                    return $"{GetTypeString(optionalType.SubType)} | null";
                 case TagType tagType:
                     return $"'{tagType.Value}'";
             }

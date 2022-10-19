@@ -14,6 +14,7 @@ class Player(str, Enum):
 class Game(BaseModel):
     gameId: str
     version: int
+    possession: Optional[Player]
 
 class RspAction(BaseModel):
     name: Literal['RSP'] = 'RSP'

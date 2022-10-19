@@ -54,12 +54,12 @@ namespace Model {
         public Type SubType;
     }
 
+    public class OptionalType : Type {
+        public Type SubType;
+    }
+
     // Used for TaggedUnions
     public class TagType : Type {
         public string Value;
-
-        public TagType(string value) {
-            this.Value = value;
-        }
     }
 }

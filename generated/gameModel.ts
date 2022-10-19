@@ -6,6 +6,7 @@ export type Player = 'home' | 'away';
 export type Game = {
     gameId: string;
     version: number;
+    possession: Player | null;
 };
 
 export type RspAction = {

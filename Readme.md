@@ -18,6 +18,7 @@ Several difference structures require a type to be specified. This can be one of
  - `<int/>`
  - `<string/>`
  - `<list> {some type} <\list>`
+ - `<optional> {some type} </optional>`
 
 ### Enum
 

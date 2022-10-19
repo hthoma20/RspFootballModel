@@ -110,7 +110,7 @@ namespace Model
             var members = new List<TypedMember>(structModel.Members);
             members.Insert(0, new TypedMember{
                 Name = tagKey,
-                Type = new TagType(tag)
+                Type = new TagType{ Value = tag }
             });
 
             structModel.Members = members;
@@ -140,6 +140,10 @@ namespace Model
                     return new StringType();
                 case "list":
                     return new ListType {
+                        SubType = ParseType(node.FirstChild)
+                    };
+                case "optional":
+                    return new OptionalType {
                         SubType = ParseType(node.FirstChild)
                     };
             }
