@@ -53,7 +53,7 @@ namespace Model
             
             XmlNodeList memberNodes = node.SelectNodes("member");
             IEnumerable<string> members = from memberNode in memberNodes.Cast<XmlNode>()
-                select memberNode.InnerText;
+                select memberNode.InnerText.Trim();
 
             return new EnumModel {
                 Name = name,
@@ -119,7 +119,7 @@ namespace Model
         }
 
         private TypedMember ParseTypedMember(XmlNode node) {
-            string name = node.SelectSingleNode("name").InnerText;
+            string name = node.SelectSingleNode("name").InnerText.Trim();
             Type type = ParseType(node.SelectSingleNode("type").FirstChild);
 
             return new TypedMember {

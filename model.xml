@@ -1,15 +1,49 @@
 
 
 <model>
+    
+    <Enum name="Player">
+        <member>home</member>
+        <member>away</member>
+    </Enum>
+
+    <Enum name="State">
+        <member>COIN_TOSS </member>
+        <member>KICKOFF_ELECTION </member> <!-- whether to kick or recieve -->
+        <member>KICKOFF_CHOICE </member> <!--  whether to onside kick -->
+        <member>KICKOFF </member>
+        <member>ONSIDE_KICK </member>
+        <member>TOUCHBACK_CHOICE </member> <!--  whether to take a knee or run -->
+        <member>KICK_RETURN </member> <!--  rolling from a kickoff or punt -->
+        <member>KICK_RETURN_1 </member> <!--  a 1 was rolled, choose to roll again -->
+        <member>KICK_RETURN_6 </member> <!--  a 6 was rolled, roll again -->
+        
+        <member>FUMBLE </member>
+        
+        <member>PAT_CHOICE </member>
+        <member>EXTRA_POINT </member>
+        <member>EXTRA_POINT_2 </member>
+        
+        <member>PLAY_CALL </member>
+        <member>SHORT_RUN </member>
+        <member>SHORT_RUN_CONT </member>
+        <member>LONG_RUN </member>
+        <member>LONG_RUN_ROLL </member>
+        
+        <member>SACK_ROLL </member>
+        
+        <member>GAME_OVER </member>
+    </Enum>
+
+    <Enum name="Play">
+        <member>SHORT_RUN</member>
+        <member>LONG_RUN</member>
+    </Enum>
+
     <Enum name="RspChoice">
         <member>ROCK</member>
         <member>PAPER</member>
         <member>SCISSORS</member>
-    </Enum>
-
-    <Enum name="Player">
-        <member>home</member>
-        <member>away</member>
     </Enum>
 
     <Struct name="Game">
@@ -29,17 +63,141 @@
                 </playermap>
             </type>
         </member>
+
+        <member>
+            <name>state</name>
+            <type>State</type>
+        </member>
+        <member>
+            <name>play</name>
+            <type><optional>Play</optional></type>
+        </member>
         <member>
             <name>possession</name>
             <type><optional>Player</optional></type>
         </member>
+        <member>
+            <name>ballpos</name>
+            <type><int/></type>
+        </member>
+        <member>
+            <name>firstDown</name>
+            <type><optional><int/></optional></type>
+        </member>
+
+        <member>
+            <name>playCount</name>
+            <type><int/></type>
+        </member>
+        <member>
+            <name>down</name>
+            <type><int/></type>
+        </member>
+
+        <member>
+            <name>firstKick</name>
+            <type><optional>Player</optional>></type>
+        </member>
+
+        <member>
+            <name>rsp</name>
+            <type><playermap><optional>RspChoice</optional></playermap></type>
+        </member>
+        <member>
+            <name>roll</name>
+            <type><list><int/></list></type>
+        </member>
+        <member>
+            <name>score</name>
+            <type><playermap><int/></playermap></type>
+        </member>
+        <member>
+            <name>penalties</name>
+            <type><playermap><int/></playermap></type>
+        </member>
+
+        <member>
+            <name>actions</name>
+            <type><playermap><list><string/></list></playermap></type>
+        </member>
+        <member>
+            <name>result</name>
+            <type><list>Result</list></type>
+        </member>
     </Struct>
+
+    <Enum name="KickoffElectionChoice">
+        <member>KICK</member>
+        <member>RECIEVE</member>
+    </Enum>
+
+    <Enum name="KickoffChoice">
+        <member>REGULAR</member>
+        <member>ONSIDE</member>
+    </Enum>
+
+    <Enum name="TouchbackChoice">
+        <member>TOUCHBACK</member>
+        <member>RETURN</member>
+    </Enum>
+
+    <Enum name="RollAgainChoice">
+        <member>ROLL</member>
+        <member>HOLD</member>
+    </Enum>
+
+    <Enum name="PatChoice">
+        <member>ONE_POINT</member>
+        <member>TWO_POINT</member>
+    </Enum>
 
     <TaggedUnion name="Action" tagKey="name">
         <Struct name="RspAction" tag="RSP">
             <member>
                 <name>choice</name>
                 <type>RspChoice</type>
+            </member>
+        </Struct>
+        <Struct name="RollAction" tag="ROLL">
+            <member>
+                <name>count</name>
+                <type><int/></type>
+            </member>
+        </Struct>
+        <Struct name="KickoffElectionAction" tag="KICKOFF_ELECTION">
+            <member>
+                <name>choice</name>
+                <type>KickoffElectionChoice</type>
+            </member>
+        </Struct>
+        <Struct name="KickoffChoiceAction" tag="KICKOFF_CHOICE">
+            <member>
+                <name>choice</name>
+                <type>KickoffChoice</type>
+            </member>
+        </Struct>
+        <Struct name="CallPlayAction" tag="CALL_PLAY">
+            <member>
+                <name>play</name>
+                <type>Play</type>
+            </member>
+        </Struct>
+        <Struct name="TouchbackChoiceAction" tag="CALL_PLAY">
+            <member>
+                <name>choice</name>
+                <type>TouchbackChoice</type>
+            </member>
+        </Struct>
+        <Struct name="RollAgainChoiceAction" tag="CALL_PLAY">
+            <member>
+                <name>choice</name>
+                <type>RollAgainChoice</type>
+            </member>
+        </Struct>
+        <Struct name="PatChoiceAction" tag="CALL_PLAY">
+            <member>
+                <name>choice</name>
+                <type>PatChoice</type>
             </member>
         </Struct>
     </TaggedUnion>
@@ -55,7 +213,6 @@
                 <type>RspChoice</type>
             </member>
         </Struct>
-    
         <Struct name="RollResult" tag="ROLL">
             <member>
                 <name>player</name>
@@ -66,6 +223,22 @@
                 <type> <list><int/></list> </type>
             </member>
         </Struct>
+        <Struct name="SafetyResult" tag="SAFETY" />
     </TaggedUnion>
+
+    <Struct name="ActionRequest">
+        <member>
+            <name>gameId</name>
+            <type><string/></type>
+        </member>
+        <member>
+            <name>user</name>
+            <type><string/></type>
+        </member>
+        <member>
+            <name>action</name>
+            <type>Action</type>
+        </member>
+    </Struct>
     
 </model>
