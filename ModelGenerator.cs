@@ -20,7 +20,7 @@ namespace Model
 
             (LanguageModelGenerator, string)[] outputConfigurations = {
                 (new PydanticGenerator(), "./generated/rspmodel.py"),
-                (new TypescriptGenerator(), "./generated/gameModel.ts")
+                (new TypescriptGenerator(), "./generated/rspModel.ts")
             };
 
             foreach ((LanguageModelGenerator languageGenerator, string dest) in outputConfigurations) {

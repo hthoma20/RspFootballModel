@@ -44,17 +44,17 @@ export type CallPlayAction = {
 };
 
 export type TouchbackChoiceAction = {
-    name: 'CALL_PLAY';
+    name: 'TOUCHBACK_CHOICE';
     choice: TouchbackChoice;
 };
 
 export type RollAgainChoiceAction = {
-    name: 'CALL_PLAY';
+    name: 'ROLL_AGAIN_CHOICE';
     choice: RollAgainChoice;
 };
 
 export type PatChoiceAction = {
-    name: 'CALL_PLAY';
+    name: 'PAT_CHOICE';
     choice: PatChoice;
 };
 

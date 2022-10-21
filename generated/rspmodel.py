@@ -78,15 +78,15 @@ class CallPlayAction(BaseModel):
     play: Play
 
 class TouchbackChoiceAction(BaseModel):
-    name: Literal['CALL_PLAY'] = 'CALL_PLAY'
+    name: Literal['TOUCHBACK_CHOICE'] = 'TOUCHBACK_CHOICE'
     choice: TouchbackChoice
 
 class RollAgainChoiceAction(BaseModel):
-    name: Literal['CALL_PLAY'] = 'CALL_PLAY'
+    name: Literal['ROLL_AGAIN_CHOICE'] = 'ROLL_AGAIN_CHOICE'
     choice: RollAgainChoice
 
 class PatChoiceAction(BaseModel):
-    name: Literal['CALL_PLAY'] = 'CALL_PLAY'
+    name: Literal['PAT_CHOICE'] = 'PAT_CHOICE'
     choice: PatChoice
 
 Action = Union[RspAction, RollAction, KickoffElectionAction, KickoffChoiceAction, CallPlayAction, TouchbackChoiceAction, RollAgainChoiceAction, PatChoiceAction]

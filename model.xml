@@ -102,19 +102,19 @@
                 <type>Play</type>
             </member>
         </Struct>
-        <Struct name="TouchbackChoiceAction" tag="CALL_PLAY">
+        <Struct name="TouchbackChoiceAction" tag="TOUCHBACK_CHOICE">
             <member>
                 <name>choice</name>
                 <type>TouchbackChoice</type>
             </member>
         </Struct>
-        <Struct name="RollAgainChoiceAction" tag="CALL_PLAY">
+        <Struct name="RollAgainChoiceAction" tag="ROLL_AGAIN_CHOICE">
             <member>
                 <name>choice</name>
                 <type>RollAgainChoice</type>
             </member>
         </Struct>
-        <Struct name="PatChoiceAction" tag="CALL_PLAY">
+        <Struct name="PatChoiceAction" tag="PAT_CHOICE">
             <member>
                 <name>choice</name>
                 <type>PatChoice</type>
