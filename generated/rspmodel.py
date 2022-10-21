@@ -81,6 +81,9 @@ class ActionRequest(BaseModel):
     user: str
     action: Action
 
+class ListGamesQuery(BaseModel):
+    available: bool
+
 class RspAction(BaseModel):
     name: Literal['RSP'] = 'RSP'
     choice: RspChoice

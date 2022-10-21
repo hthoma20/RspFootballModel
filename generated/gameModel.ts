@@ -44,6 +44,10 @@ export type ActionRequest = {
     action: Action;
 };
 
+export type ListGamesQuery = {
+    available: boolean;
+};
+
 export type RspAction = {
     name: 'RSP';
     choice: RspChoice;

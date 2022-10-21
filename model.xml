@@ -240,5 +240,12 @@
             <type>Action</type>
         </member>
     </Struct>
+
+    <Struct name="ListGamesQuery">
+        <member>
+            <name>available</name>
+            <type><boolean/></type>
+        </member>
+    </Struct>
     
 </model>

@@ -50,6 +50,8 @@ namespace Model {
 
     public class StringType : Type {}
 
+    public class BooleanType : Type {}
+
     public class ListType : Type {
         public Type SubType;
     }

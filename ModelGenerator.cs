@@ -138,6 +138,8 @@ namespace Model
                     return new IntType();
                 case "string":
                     return new StringType();
+                case "boolean":
+                    return new BooleanType();
                 case "list":
                     return new ListType {
                         SubType = ParseType(node.FirstChild)

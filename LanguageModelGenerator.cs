@@ -47,6 +47,8 @@ namespace Model {
                     return "int";
                 case StringType stringType:
                     return "str";
+                case BooleanType boolType:
+                    return "bool";
                 case ListType listType:
                     return $"list[{GetTypeString(listType.SubType)}]";
                 case OptionalType optionalType:
@@ -103,6 +105,8 @@ namespace Model {
                     return "number";
                 case StringType stringType:
                     return "string";
+                case BooleanType boolType:
+                    return "boolean";
                 case ListType listType:
                     return $"{GetTypeString(listType.SubType)}[]";
                 case OptionalType optionalType:

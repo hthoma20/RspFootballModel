@@ -28,6 +28,7 @@ Several difference structures require a type to be specified. This can be one of
 
 A struct is a named type with key-value pairs. Each `<Struct>` must have a `name` attribute.
 It should have `<member>` children. Each `<member>` should have a `<name>` and a `<type>`.
+`<member>`s of a Stuct may optionally have a `default` attribute.
 
 ### TaggedUnion
 
