@@ -19,6 +19,9 @@ Several difference structures require a type to be specified. This can be one of
  - `<string/>`
  - `<list> {some type} <\list>`
  - `<optional> {some type} </optional>`
+ - `<serverdefault> <type> {some type} </type> <default> {some value} </default> </serverdefault>`
+    - a server default is an optional field in the client model, and a required field in the server model
+        with the specified default. The default value is copied verbatim, so "" should be used for string literals
 
 ### Enum
 

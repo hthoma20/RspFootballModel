@@ -244,7 +244,12 @@
     <Struct name="ListGamesQuery">
         <member>
             <name>available</name>
-            <type><boolean/></type>
+            <type>
+                <serverdefault>
+                    <type>boolean</type>
+                    <default>True</default>
+                </serverdefault>
+            </type>
         </member>
     </Struct>
     

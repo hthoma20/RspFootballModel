@@ -82,7 +82,7 @@ class ActionRequest(BaseModel):
     action: Action
 
 class ListGamesQuery(BaseModel):
-    available: bool
+    available: boolean = True
 
 class RspAction(BaseModel):
     name: Literal['RSP'] = 'RSP'

@@ -55,6 +55,8 @@ namespace Model {
                     return $"Optional[{GetTypeString(optionalType.SubType)}]";
                 case PlayerMap playerMap:
                     return $"dict[Player, {GetTypeString(playerMap.SubType)}]";
+                case ServerDefault serverDefault:
+                    return $"{GetTypeString(serverDefault.SubType)} = {serverDefault.DefaultValue}";
                 case TagType tagType:
                     return $"Literal['{tagType.Value}'] = '{tagType.Value}'";
             }
@@ -84,7 +86,8 @@ namespace Model {
 
             foreach (TypedMember member in structModel.Members) {
                 string typeString = GetTypeString(member.Type);
-                writer.WriteLine($"{TAB}{member.Name}: {typeString};");
+                string nameQualifier = member.Type is ServerDefault ? "?" : "";
+                writer.WriteLine($"{TAB}{member.Name}{nameQualifier}: {typeString};");
             }
 
             writer.WriteLine("};");
@@ -113,6 +116,9 @@ namespace Model {
                     return $"{GetTypeString(optionalType.SubType)} | null";
                 case PlayerMap playerMap:
                     return $"PlayerMap<{GetTypeString(playerMap.SubType)}>";
+                case ServerDefault serverDefault:
+                    // Making this type optional is handled in the member name
+                    return $"{GetTypeString(serverDefault.SubType)}";
                 case TagType tagType:
                     return $"'{tagType.Value}'";
             }

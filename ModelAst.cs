@@ -64,6 +64,11 @@ namespace Model {
         public Type SubType;
     }
 
+    public class ServerDefault : Type {
+        public Type SubType;
+        public string DefaultValue;
+    }
+
     // Used for TaggedUnions
     public class TagType : Type {
         public string Value;

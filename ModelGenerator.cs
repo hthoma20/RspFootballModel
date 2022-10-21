@@ -152,6 +152,11 @@ namespace Model
                     return new PlayerMap {
                         SubType = ParseType(node.FirstChild)
                     };
+                case "serverdefault":
+                    return new ServerDefault {
+                        SubType = ParseType(node.SelectSingleNode("type").FirstChild),
+                        DefaultValue = node.SelectSingleNode("default").InnerText.Trim()
+                    };
             }
 
             throw new ArgumentException("Unknown type node: " + node.Name);
