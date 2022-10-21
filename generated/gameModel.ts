@@ -46,6 +46,7 @@ export type ActionRequest = {
 
 export type ListGamesQuery = {
     available?: boolean;
+    user: string | null;
 };
 
 export type RspAction = {

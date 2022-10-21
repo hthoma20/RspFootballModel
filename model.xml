@@ -251,6 +251,10 @@
                 </serverdefault>
             </type>
         </member>
+        <member>
+            <name>user</name>
+            <type><optional><string/></optional></type>
+        </member>
     </Struct>
     
 </model>

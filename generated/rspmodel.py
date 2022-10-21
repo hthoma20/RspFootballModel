@@ -83,6 +83,7 @@ class ActionRequest(BaseModel):
 
 class ListGamesQuery(BaseModel):
     available: boolean = True
+    user: Optional[str]
 
 class RspAction(BaseModel):
     name: Literal['RSP'] = 'RSP'
