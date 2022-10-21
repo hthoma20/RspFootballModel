@@ -34,18 +34,25 @@ namespace Model
     class ModelParser {
         public Model Parse(XmlDocument xmlDoc) {
             XmlNode model = xmlDoc.FirstChild;
+
+            var constructs = from XmlNode node in model
+                    select ParseConstruct(node);
+
             return new Model {
-                Enums = ParseEnums(model),
-                Structs = ParseStructs(model),
-                Unions = ParseUnions(model)
+                Constructs = constructs
             };
         }
 
-        private IEnumerable<EnumModel> ParseEnums(XmlNode xmlNode) {
-            XmlNodeList enums = xmlNode.SelectNodes("Enum");
-
-            return from enumNode in enums.Cast<XmlNode>()
-                select ParseEnum(enumNode);
+        private TopLevelConstruct ParseConstruct(XmlNode node) {
+            switch (node.Name) {
+                case "Enum":
+                    return ParseEnum(node);
+                case "Struct":
+                    return ParseStruct(node);
+                case "TaggedUnion":
+                    return ParseUnion(node);
+            }
+            throw new ArgumentException("Unexpected top-level node " + node.Name);
         }
 
         private EnumModel ParseEnum(XmlNode node) {
@@ -61,13 +68,6 @@ namespace Model
             };
         }
 
-        private IEnumerable<StructModel> ParseStructs(XmlNode xmlNode) {
-            XmlNodeList structs = xmlNode.SelectNodes("Struct");
-
-            return from structNode in structs.Cast<XmlNode>()
-                select ParseStruct(structNode);
-        }
-
         private StructModel ParseStruct(XmlNode node) {
             string name = node.Attributes["name"].Value;
             
@@ -79,13 +79,6 @@ namespace Model
                 Name = name,
                 Members = members
             };
-        }
-
-        private IEnumerable<TaggedUnionModel> ParseUnions(XmlNode xmlNode) {
-            XmlNodeList unions = xmlNode.SelectNodes("TaggedUnion");
-
-            return from unionNode in unions.Cast<XmlNode>()
-                select ParseUnion(unionNode);
         }
 
         private TaggedUnionModel ParseUnion(XmlNode node) {
@@ -182,22 +175,24 @@ namespace Model
             generator.GenerateHeader(writer);
             writer.WriteLine();
 
-            foreach (EnumModel enumModel in model.Enums) {
-                generator.GenerateEnum(writer, enumModel);
-                writer.WriteLine();
-            }
-
-            foreach (StructModel structModel in model.Structs) {
-                generator.GenerateStruct(writer, structModel);
-                writer.WriteLine();
-            }
-
-            foreach (TaggedUnionModel unionModel in model.Unions) {
-                foreach (StructModel structModel in unionModel.Members) {
-                    generator.GenerateStruct(writer, structModel);
-                    writer.WriteLine();
+            foreach (TopLevelConstruct construct in model.Constructs) {
+                switch (construct) {
+                    case EnumModel enumModel:
+                        generator.GenerateEnum(writer, enumModel);
+                        break;
+                    case StructModel structModel:
+                        generator.GenerateStruct(writer, structModel);
+                        break;
+                    case TaggedUnionModel unionModel:
+                        foreach (StructModel structModel in unionModel.Members) {
+                            generator.GenerateStruct(writer, structModel);
+                            writer.WriteLine();
+                        }
+                        generator.GenerateTaggedUnion(writer, unionModel);
+                        break;
+                    default:
+                        throw new ArgumentException("Unexpected construct " + construct);
                 }
-                generator.GenerateTaggedUnion(writer, unionModel);
                 writer.WriteLine();
             }
         }

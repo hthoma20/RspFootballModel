@@ -57,34 +57,6 @@ class PatChoice(str, Enum):
     ONE_POINT = 'ONE_POINT'
     TWO_POINT = 'TWO_POINT'
 
-class Game(BaseModel):
-    gameId: str
-    version: int
-    players: dict[Player, Optional[str]]
-    state: State
-    play: Optional[Play]
-    possession: Optional[Player]
-    ballpos: int
-    firstDown: Optional[int]
-    playCount: int
-    down: int
-    firstKick: Optional[Player]
-    rsp: dict[Player, Optional[RspChoice]]
-    roll: list[int]
-    score: dict[Player, int]
-    penalties: dict[Player, int]
-    actions: dict[Player, list[str]]
-    result: list[Result]
-
-class ActionRequest(BaseModel):
-    gameId: str
-    user: str
-    action: Action
-
-class ListGamesQuery(BaseModel):
-    available: boolean = True
-    user: Optional[str]
-
 class RspAction(BaseModel):
     name: Literal['RSP'] = 'RSP'
     choice: RspChoice
@@ -133,4 +105,32 @@ class SafetyResult(BaseModel):
     name: Literal['SAFETY'] = 'SAFETY'
 
 Result = Union[RspResult, RollResult, SafetyResult]
+
+class Game(BaseModel):
+    gameId: str
+    version: int
+    players: dict[Player, Optional[str]]
+    state: State
+    play: Optional[Play]
+    possession: Optional[Player]
+    ballpos: int
+    firstDown: Optional[int]
+    playCount: int
+    down: int
+    firstKick: Optional[Player]
+    rsp: dict[Player, Optional[RspChoice]]
+    roll: list[int]
+    score: dict[Player, int]
+    penalties: dict[Player, int]
+    actions: dict[Player, list[str]]
+    result: list[Result]
+
+class ActionRequest(BaseModel):
+    gameId: str
+    user: str
+    action: Action
+
+class ListGamesQuery(BaseModel):
+    available: bool = True
+    user: Optional[str]
 

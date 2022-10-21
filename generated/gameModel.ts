@@ -18,37 +18,6 @@ export type RollAgainChoice = 'ROLL' | 'HOLD';
 
 export type PatChoice = 'ONE_POINT' | 'TWO_POINT';
 
-export type Game = {
-    gameId: string;
-    version: number;
-    players: PlayerMap<string | null>;
-    state: State;
-    play: Play | null;
-    possession: Player | null;
-    ballpos: number;
-    firstDown: number | null;
-    playCount: number;
-    down: number;
-    firstKick: Player | null;
-    rsp: PlayerMap<RspChoice | null>;
-    roll: number[];
-    score: PlayerMap<number>;
-    penalties: PlayerMap<number>;
-    actions: PlayerMap<string[]>;
-    result: Result[];
-};
-
-export type ActionRequest = {
-    gameId: string;
-    user: string;
-    action: Action;
-};
-
-export type ListGamesQuery = {
-    available?: boolean;
-    user: string | null;
-};
-
 export type RspAction = {
     name: 'RSP';
     choice: RspChoice;
@@ -108,4 +77,35 @@ export type SafetyResult = {
 };
 
 export type Result = RspResult | RollResult | SafetyResult;
+
+export type Game = {
+    gameId: string;
+    version: number;
+    players: PlayerMap<string | null>;
+    state: State;
+    play: Play | null;
+    possession: Player | null;
+    ballpos: number;
+    firstDown: number | null;
+    playCount: number;
+    down: number;
+    firstKick: Player | null;
+    rsp: PlayerMap<RspChoice | null>;
+    roll: number[];
+    score: PlayerMap<number>;
+    penalties: PlayerMap<number>;
+    actions: PlayerMap<string[]>;
+    result: Result[];
+};
+
+export type ActionRequest = {
+    gameId: string;
+    user: string;
+    action: Action;
+};
+
+export type ListGamesQuery = {
+    available?: boolean;
+    user: string | null;
+};
 

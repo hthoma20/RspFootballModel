@@ -7,13 +7,11 @@ using System.Xml;
 
 namespace Model {
 
-    public class EnumModel {
+    public interface TopLevelConstruct {}
+
+    public class EnumModel : TopLevelConstruct {
         public string Name;
         public IEnumerable<String> Members;
-
-        public override string ToString() {
-            return "EnumModel<" + Name + ":" + string.Join("|", Members) + ">";
-        }
     }
 
     public class TypedMember {
@@ -21,23 +19,20 @@ namespace Model {
         public Type Type;
     }
 
-    public class StructModel {
+    public class StructModel : TopLevelConstruct {
         public string Name;
         public IEnumerable<TypedMember> Members;
     }
 
-    public class TaggedUnionModel {
+    public class TaggedUnionModel : TopLevelConstruct {
         public string Name;
         public string TagKey;
         public IEnumerable<StructModel> Members;
     }
 
     public class Model {
-        public IEnumerable<EnumModel> Enums;
-        public IEnumerable<StructModel> Structs;
-        public IEnumerable<TaggedUnionModel> Unions;
+        public IEnumerable<TopLevelConstruct> Constructs;
     }
-
 
 
     public interface Type {}

@@ -46,86 +46,6 @@
         <member>SCISSORS</member>
     </Enum>
 
-    <Struct name="Game">
-        <member>
-            <name>gameId</name>
-            <type><string/></type>
-        </member>
-        <member>
-            <name>version</name>
-            <type><int/></type>
-        </member>
-        <member>
-            <name>players</name>
-            <type>
-                <playermap>
-                    <optional><string/></optional>
-                </playermap>
-            </type>
-        </member>
-
-        <member>
-            <name>state</name>
-            <type>State</type>
-        </member>
-        <member>
-            <name>play</name>
-            <type><optional>Play</optional></type>
-        </member>
-        <member>
-            <name>possession</name>
-            <type><optional>Player</optional></type>
-        </member>
-        <member>
-            <name>ballpos</name>
-            <type><int/></type>
-        </member>
-        <member>
-            <name>firstDown</name>
-            <type><optional><int/></optional></type>
-        </member>
-
-        <member>
-            <name>playCount</name>
-            <type><int/></type>
-        </member>
-        <member>
-            <name>down</name>
-            <type><int/></type>
-        </member>
-
-        <member>
-            <name>firstKick</name>
-            <type><optional>Player</optional>></type>
-        </member>
-
-        <member>
-            <name>rsp</name>
-            <type><playermap><optional>RspChoice</optional></playermap></type>
-        </member>
-        <member>
-            <name>roll</name>
-            <type><list><int/></list></type>
-        </member>
-        <member>
-            <name>score</name>
-            <type><playermap><int/></playermap></type>
-        </member>
-        <member>
-            <name>penalties</name>
-            <type><playermap><int/></playermap></type>
-        </member>
-
-        <member>
-            <name>actions</name>
-            <type><playermap><list><string/></list></playermap></type>
-        </member>
-        <member>
-            <name>result</name>
-            <type><list>Result</list></type>
-        </member>
-    </Struct>
-
     <Enum name="KickoffElectionChoice">
         <member>KICK</member>
         <member>RECIEVE</member>
@@ -226,6 +146,87 @@
         <Struct name="SafetyResult" tag="SAFETY" />
     </TaggedUnion>
 
+    <Struct name="Game">
+        <member>
+            <name>gameId</name>
+            <type><string/></type>
+        </member>
+        <member>
+            <name>version</name>
+            <type><int/></type>
+        </member>
+        <member>
+            <name>players</name>
+            <type>
+                <playermap>
+                    <optional><string/></optional>
+                </playermap>
+            </type>
+        </member>
+
+        <member>
+            <name>state</name>
+            <type>State</type>
+        </member>
+        <member>
+            <name>play</name>
+            <type><optional>Play</optional></type>
+        </member>
+        <member>
+            <name>possession</name>
+            <type><optional>Player</optional></type>
+        </member>
+        <member>
+            <name>ballpos</name>
+            <type><int/></type>
+        </member>
+        <member>
+            <name>firstDown</name>
+            <type><optional><int/></optional></type>
+        </member>
+
+        <member>
+            <name>playCount</name>
+            <type><int/></type>
+        </member>
+        <member>
+            <name>down</name>
+            <type><int/></type>
+        </member>
+
+        <member>
+            <name>firstKick</name>
+            <type><optional>Player</optional>></type>
+        </member>
+
+        <member>
+            <name>rsp</name>
+            <type><playermap><optional>RspChoice</optional></playermap></type>
+        </member>
+        <member>
+            <name>roll</name>
+            <type><list><int/></list></type>
+        </member>
+        <member>
+            <name>score</name>
+            <type><playermap><int/></playermap></type>
+        </member>
+        <member>
+            <name>penalties</name>
+            <type><playermap><int/></playermap></type>
+        </member>
+
+        <member>
+            <name>actions</name>
+            <type><playermap><list><string/></list></playermap></type>
+        </member>
+        <member>
+            <name>result</name>
+            <type><list>Result</list></type>
+        </member>
+    </Struct>
+
+    
     <Struct name="ActionRequest">
         <member>
             <name>gameId</name>
@@ -246,7 +247,7 @@
             <name>available</name>
             <type>
                 <serverdefault>
-                    <type>boolean</type>
+                    <type><boolean/></type>
                     <default>True</default>
                 </serverdefault>
             </type>
