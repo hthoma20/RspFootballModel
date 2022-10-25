@@ -29,7 +29,10 @@
         <member>SHORT_RUN_CONT </member>
         <member>LONG_RUN </member>
         <member>LONG_RUN_ROLL </member>
+        <member>SHORT_PASS</member>
+        <member>SHORT_PASS_CONT</member>
         
+        <member>SACK_CHOICE</member>
         <member>SACK_ROLL </member>
         
         <member>GAME_OVER </member>
@@ -38,6 +41,7 @@
     <Enum name="Play">
         <member>SHORT_RUN</member>
         <member>LONG_RUN</member>
+        <member>SHORT_PASS</member>
     </Enum>
 
     <Enum name="RspChoice">
@@ -69,6 +73,11 @@
     <Enum name="PatChoice">
         <member>ONE_POINT</member>
         <member>TWO_POINT</member>
+    </Enum>
+
+    <Enum name="SackChoice">
+        <member>SACK</member>
+        <member>PICK</member>
     </Enum>
 
     <TaggedUnion name="Action" tagKey="name">
@@ -120,6 +129,12 @@
                 <type>PatChoice</type>
             </member>
         </Struct>
+        <Struct name="SackChoiceAction" tag="SACK_CHOICE">
+            <member>
+                <name>choice</name>
+                <type>SackChoice</type>
+            </member>
+        </Struct>
     </TaggedUnion>
 
     <TaggedUnion name="Result" tagKey="name">
@@ -144,6 +159,20 @@
             </member>
         </Struct>
         <Struct name="SafetyResult" tag="SAFETY" />
+        <Struct name="GainResult" tag="GAIN" >
+            <member>
+                <name>play</name>
+                <type>Play</type>
+            </member>
+            <member>
+                <name>player</name>
+                <type>Player</type>
+            </member>
+            <member>
+                <name>yards</name>
+                <type><int/></type>
+            </member>
+        </Struct>
     </TaggedUnion>
 
     <Struct name="Game">
