@@ -173,6 +173,20 @@
                 <type><int/></type>
             </member>
         </Struct>
+        <Struct name="LossResult" tag="LOSS">
+            <member>
+                <name>play</name>
+                <type>Play</type>
+            </member>
+            <member>
+                <name>player</name>
+                <type>Player</type>
+            </member>
+            <member>
+                <name>yards</name>
+                <type><int/></type>
+            </member>
+        </Struct>
     </TaggedUnion>
 
     <Struct name="Game">
