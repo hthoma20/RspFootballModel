@@ -6,7 +6,8 @@ The model is defined in a custom subset of XML, located at `model.xml`. Using `d
 both a Pydantic version and a Typescript version of the model are generated and placed in
 the `generated` directory. Consumers of this model can then copy the relevant model.
 
-The generated models are deployed to there respective locations using the `publish.ps1` script.
+The generated models are deployed to their respective locations using the `publish.ps1` script.
+These locations are hardcoded in ModelGenerator.Main.
 
 
 ## Model language
