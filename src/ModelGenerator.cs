@@ -15,8 +15,15 @@ namespace Model
             xmlDoc.Load("model.xml");
 
             ModelParser parser = new ModelParser();
-
             Model model = parser.Parse(xmlDoc);
+
+            ModelValidator validator = new ComposedValidator(new PlayStateMatchValidator());
+            validator.Validate(model).ifError(errors => {
+                foreach (ModelValidationError error in errors) {
+                    Console.Error.WriteLine("Validation error: " + error.Message);
+                }
+                Environment.Exit(1);
+            });
 
             (LanguageModelGenerator, string)[] outputConfigurations = {
                 (new PydanticGenerator(), "./generated/rspmodel.py"),

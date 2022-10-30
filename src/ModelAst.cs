@@ -7,10 +7,12 @@ using System.Xml;
 
 namespace Model {
 
-    public interface TopLevelConstruct {}
+    public interface TopLevelConstruct {
+        string Name {get;}
+    }
 
     public class EnumModel : TopLevelConstruct {
-        public string Name;
+        public string Name {get; set;}
         public IEnumerable<String> Members;
     }
 
@@ -20,12 +22,12 @@ namespace Model {
     }
 
     public class StructModel : TopLevelConstruct {
-        public string Name;
+        public string Name {get; set;}
         public IEnumerable<TypedMember> Members;
     }
 
     public class TaggedUnionModel : TopLevelConstruct {
-        public string Name;
+        public string Name {get; set;}
         public string TagKey;
         public IEnumerable<StructModel> Members;
     }
@@ -34,6 +36,18 @@ namespace Model {
         public IEnumerable<TopLevelConstruct> Constructs;
     }
 
+    public static class TopLevelConstructExtensions {
+        // Return the construct with the given name, or null if the name is not found
+        public static TopLevelConstruct FindConstruct(this IEnumerable<TopLevelConstruct> constructs, string name) {
+            foreach (TopLevelConstruct construct in constructs) {
+                if (construct.Name == name) {
+                    return construct;
+                }
+            }
+            return null;
+        }   
+    }
+        
 
     public interface Type {}
 
