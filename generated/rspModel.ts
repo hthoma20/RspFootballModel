@@ -2,7 +2,7 @@ export type PlayerMap<T> = {'home': T, 'away': T}
 
 export type Player = 'home' | 'away';
 
-export type State = 'COIN_TOSS' | 'KICKOFF_ELECTION' | 'KICKOFF_CHOICE' | 'KICKOFF' | 'ONSIDE_KICK' | 'TOUCHBACK_CHOICE' | 'KICK_RETURN' | 'KICK_RETURN_1' | 'KICK_RETURN_6' | 'FUMBLE' | 'PAT_CHOICE' | 'EXTRA_POINT' | 'EXTRA_POINT_2' | 'PLAY_CALL' | 'SHORT_RUN' | 'SHORT_RUN_CONT' | 'LONG_RUN' | 'LONG_RUN_ROLL' | 'SHORT_PASS' | 'SHORT_PASS_CONT' | 'SACK_CHOICE' | 'SACK_ROLL' | 'GAME_OVER';
+export type State = 'COIN_TOSS' | 'KICKOFF_ELECTION' | 'KICKOFF_CHOICE' | 'KICKOFF' | 'ONSIDE_KICK' | 'TOUCHBACK_CHOICE' | 'KICK_RETURN' | 'KICK_RETURN_1' | 'KICK_RETURN_6' | 'FUMBLE' | 'PAT_CHOICE' | 'EXTRA_POINT' | 'EXTRA_POINT_2' | 'PLAY_CALL' | 'SHORT_RUN' | 'SHORT_RUN_CONT' | 'LONG_RUN' | 'LONG_RUN_ROLL' | 'SHORT_PASS' | 'SHORT_PASS_CONT' | 'SACK_CHOICE' | 'SACK_ROLL' | 'PICK_ROLL' | 'DISTANCE_ROLL' | 'PICK_TOUCHBACK_CHOICE' | 'PICK_RETURN' | 'PICK_RETURN_6' | 'GAME_OVER';
 
 export type Play = 'SHORT_RUN' | 'LONG_RUN' | 'SHORT_PASS';
 
@@ -67,6 +67,8 @@ export type SackChoiceAction = {
 
 export type Action = RspAction | RollAction | KickoffElectionAction | KickoffChoiceAction | CallPlayAction | TouchbackChoiceAction | RollAgainChoiceAction | PatChoiceAction | SackChoiceAction;
 
+export type TurnoverType = 'DOWNS' | 'PICK' | 'FUMBLE';
+
 export type RspResult = {
     name: 'RSP';
     home: RspChoice;
@@ -97,7 +99,20 @@ export type LossResult = {
     yards: number;
 };
 
-export type Result = RspResult | RollResult | SafetyResult | GainResult | LossResult;
+export type TurnoverResult = {
+    name: 'TURNOVER';
+    type: TurnoverType;
+};
+
+export type OutOfBoundsPassResult = {
+    name: 'OOB_PASS';
+};
+
+export type TouchbackResult = {
+    name: 'TOUCHBACK';
+};
+
+export type Result = RspResult | RollResult | SafetyResult | GainResult | LossResult | TurnoverResult | OutOfBoundsPassResult | TouchbackResult;
 
 export type Game = {
     gameId: string;

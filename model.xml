@@ -24,6 +24,13 @@
         <member>EXTRA_POINT </member>
         <member>EXTRA_POINT_2 </member>
         
+        <!-- It is garunteed that when a play is called, the name of the play
+        is the name of the next state.
+            
+        PLAY_CALL -CallPlayAction(play=P)-> P
+
+        i.e when Play.SHORT_RUN is called, if the offense wins the RSP,
+        the state transitions to State.SHORT_RUN -->
         <member>PLAY_CALL </member>
         <member>SHORT_RUN </member>
         <member>SHORT_RUN_CONT </member>
@@ -34,6 +41,11 @@
         
         <member>SACK_CHOICE</member>
         <member>SACK_ROLL </member>
+        <member>PICK_ROLL</member>
+        <member>DISTANCE_ROLL</member> <!-- Roll to determine spot of the interception -->
+        <member>PICK_TOUCHBACK_CHOICE</member>
+        <member>PICK_RETURN</member>
+        <member>PICK_RETURN_6</member>
         
         <member>GAME_OVER </member>
     </Enum>
@@ -137,6 +149,12 @@
         </Struct>
     </TaggedUnion>
 
+    <Enum name="TurnoverType">
+        <member>DOWNS</member>
+        <member>PICK</member>
+        <member>FUMBLE</member>
+    </Enum>
+
     <TaggedUnion name="Result" tagKey="name">
         <Struct name="RspResult" tag="RSP">
             <member>
@@ -187,6 +205,14 @@
                 <type><int/></type>
             </member>
         </Struct>
+        <Struct name="TurnoverResult" tag="TURNOVER">
+            <member>
+                <name>type</name>
+                <type>TurnoverType</type>
+            </member>
+        </Struct>
+        <Struct name="OutOfBoundsPassResult" tag="OOB_PASS" />
+        <Struct name="TouchbackResult" tag="TOUCHBACK" />
     </TaggedUnion>
 
     <Struct name="Game">
