@@ -76,9 +76,14 @@ namespace Model {
             
             IEnumerable<string> quotedMembers = from member in enumModel.Members
                 select $"'{member}'";
-            string values = string.Join(" | ", quotedMembers);
+            string values = string.Join(", ", quotedMembers);
 
-            writer.WriteLine($"export type {enumModel.Name} = {values};");
+            string valuesName = $"_{enumModel.Name}Values";
+            writer.WriteLine($"const {valuesName} = [{values}] as const;");
+            writer.WriteLine($"export type {enumModel.Name} = typeof {valuesName}[number];");
+            writer.WriteLine($"export function is{enumModel.Name}(value: string): value is {enumModel.Name} {{");
+            writer.WriteLine($"{TAB}return {valuesName}.includes(value as any);");
+            writer.WriteLine("}");
         }
 
         public void GenerateStruct(StreamWriter writer, StructModel structModel) {
