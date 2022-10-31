@@ -40,6 +40,9 @@
         <member>SHORT_PASS_CONT</member>
         <member>LONG_PASS</member>
         <member>LONG_PASS_ROLL</member>
+        <member>BOMB</member>
+        <member>BOMB_ROLL</member>
+        <member>BOMB_CHOICE</member>
         
         <member>SACK_CHOICE</member>
         <member>SACK_ROLL </member>
@@ -57,6 +60,7 @@
         <member>LONG_RUN</member>
         <member>SHORT_PASS</member>
         <member>LONG_PASS</member>
+        <member>BOMB</member>
     </Enum>
 
     <Enum name="RspChoice">
