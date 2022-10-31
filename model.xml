@@ -38,6 +38,8 @@
         <member>LONG_RUN_ROLL </member>
         <member>SHORT_PASS</member>
         <member>SHORT_PASS_CONT</member>
+        <member>LONG_PASS</member>
+        <member>LONG_PASS_ROLL</member>
         
         <member>SACK_CHOICE</member>
         <member>SACK_ROLL </member>
@@ -54,6 +56,7 @@
         <member>SHORT_RUN</member>
         <member>LONG_RUN</member>
         <member>SHORT_PASS</member>
+        <member>LONG_PASS</member>
     </Enum>
 
     <Enum name="RspChoice">
