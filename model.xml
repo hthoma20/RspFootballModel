@@ -162,6 +162,14 @@
         <member>FUMBLE</member>
     </Enum>
 
+    <Enum name="ScoreType">
+        <member>TOUCHDOWN</member>
+        <member>FIELD_GOAL</member>
+        <member>SAFETY</member>
+        <member>PAT_1</member>
+        <member>PAT_2</member>
+    </Enum>
+
     <TaggedUnion name="Result" tagKey="name">
         <Struct name="RspResult" tag="RSP">
             <member>
@@ -183,7 +191,12 @@
                 <type> <list><int/></list> </type>
             </member>
         </Struct>
-        <Struct name="SafetyResult" tag="SAFETY" />
+        <Struct name="ScoreResult" tag="SCORE">
+            <member>
+                <name>type</name>
+                <type>ScoreType</type>
+            </member>
+        </Struct>
         <Struct name="GainResult" tag="GAIN" >
             <member>
                 <name>play</name>
@@ -219,7 +232,15 @@
             </member>
         </Struct>
         <Struct name="OutOfBoundsPassResult" tag="OOB_PASS" />
+        <Struct name="OutOfBoundsKickResult" tag="OOB_KICK" />
         <Struct name="TouchbackResult" tag="TOUCHBACK" />
+        <Struct name="IncompletePassResult" tag="INCOMPLETE" />
+        <Struct name="KickoffElectionResult" tag="KICK_ELECTION">
+            <member>
+                <name>choice</name>
+                <type>KickoffElectionChoice</type>
+            </member>
+        </Struct>
     </TaggedUnion>
 
     <Struct name="Game">
