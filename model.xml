@@ -43,6 +43,10 @@
         <member>BOMB</member>
         <member>BOMB_ROLL</member>
         <member>BOMB_CHOICE</member>
+        <member>PUNT</member>
+        <member>FAKE_PUNT_CHOICE</member>
+        <member>PUNT_KICK</member>
+        <member>PUNT_BLOCK</member>
         
         <member>SACK_CHOICE</member>
         <member>SACK_ROLL </member>
@@ -61,6 +65,7 @@
         <member>SHORT_PASS</member>
         <member>LONG_PASS</member>
         <member>BOMB</member>
+        <member>PUNT</member>
     </Enum>
 
     <Enum name="RspChoice">
@@ -92,6 +97,11 @@
     <Enum name="PatChoice">
         <member>ONE_POINT</member>
         <member>TWO_POINT</member>
+    </Enum>
+
+    <Enum name="FakeKickChoice">
+        <member>FAKE</member>
+        <member>KICK</member>
     </Enum>
 
     <Enum name="SackChoice">
@@ -152,6 +162,12 @@
             <member>
                 <name>choice</name>
                 <type>SackChoice</type>
+            </member>
+        </Struct>
+        <Struct name="FakeKickChoiceAction" tag="FAKE_KICK_CHOICE">
+            <member>
+                <name>choice</name>
+                <type>FakeKickChoice</type>
             </member>
         </Struct>
     </TaggedUnion>
@@ -235,6 +251,9 @@
         <Struct name="OutOfBoundsKickResult" tag="OOB_KICK" />
         <Struct name="TouchbackResult" tag="TOUCHBACK" />
         <Struct name="IncompletePassResult" tag="INCOMPLETE" />
+        <Struct name="CoffinCornerResult" tag="COFFIN_CORNER" />
+        <Struct name="FakeKickResult" tag="FAKE_KICK" />
+        <Struct name="BlockedKickResult" tag="BLOCKED_KICK" />
         <Struct name="KickoffElectionResult" tag="KICK_ELECTION">
             <member>
                 <name>choice</name>
